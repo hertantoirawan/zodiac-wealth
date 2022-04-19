@@ -4,6 +4,11 @@ import pool from '../models/dbConnect.js';
 
 const router = Router();
 
+/**
+ * Get today's horoscope.
+ * @param {string} zodiac Zodiac sign.
+ * @returns Horoscope of the day.
+ */
 const getTodayHoroscope = async (zodiac) => {
   const url = `https://any.ge/horoscope/api/?sign=${zodiac}&type=daily&day=today&lang=en`;
 
@@ -31,10 +36,20 @@ const getTodayHoroscope = async (zodiac) => {
   return '';
 };
 
+/**
+ * Shorten daily horoscope.
+ * @param {string} horoscope Horoscope for a zodiac sign.
+ * @returns Shortened horoscope.
+ */
 const shortenDailyHoroscope = (horoscope) => `${horoscope.split('.').slice(0, 2).join('.')}.`;
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+/**
+ * Get date range of a zodiac.
+ * @param {string} zodiac Zodiac sign.
+ * @returns Date range of a zodiac.
+ */
 const getZodiacDetail = async (zodiac) => {
   const query = ` select start_day, start_month, end_day, end_month
                   from sign where name=$1`;
@@ -52,6 +67,11 @@ const getZodiacDetail = async (zodiac) => {
   return '';
 };
 
+/**
+ * Get zodiac and horoscope.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ */
 const getZodiac = async (req, res) => {
   const { zodiac } = req.params;
 
@@ -63,6 +83,11 @@ const getZodiac = async (req, res) => {
   res.render('zodiac', { zodiac, zodiacDates, horoscope });
 };
 
+/**
+ * Get zodiac sign based on birth date.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ */
 const saveProfileInfo = (req, res) => {
   const { birthDay, birthMonth } = req.body;
 

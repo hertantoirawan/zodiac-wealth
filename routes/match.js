@@ -5,6 +5,11 @@ import pool from '../models/dbConnect.js';
 
 const router = Router();
 
+/**
+ * Get company icon.
+ * @param {string} homepageURL Company home page URL.
+ * @returns Company icon image.
+ */
 const getCompanyIcon = async (homepageURL) => {
   const url = `${process.env.LOGO_API_URL}/${homepageURL}?size=80`;
 
@@ -29,6 +34,11 @@ const getCompanyIcon = async (homepageURL) => {
   return null;
 };
 
+/**
+ * Get company profile.
+ * @param {string} stock Stock symbol.
+ * @returns Company profile.
+ */
 const getCompanyProfile = async (stock) => {
   let companyProfile;
 
@@ -41,8 +51,29 @@ const getCompanyProfile = async (stock) => {
   return companyProfile;
 };
 
+/**
+ * Shorten description of company long summary.
+ * @param {string} longSummary Long summary of what a company does.
+ * @returns Shortened description of a company.
+ */
 const shortenCompanySummary = (longSummary) => `${longSummary.split('.').slice(0, 2).join('.')}.`;
 
+/**
+ * Recommend a stock from a list of stocks.
+ * @param {*} stocks Stock list.
+ * @returns Recommended stock.
+ */
+const recommendStock = (stocks) => {
+  const stockList = stocks;
+
+  return stockList[Math.floor(Math.random() * stockList.length)];
+};
+
+/**
+ * Get company match based on zodiac.
+ * @param {*} req Request object.
+ * @param {*} res Response object.
+ */
 const getMatch = (req, res) => {
   const { zodiac } = req.query;
 
@@ -60,20 +91,26 @@ const getMatch = (req, res) => {
                  inner join matched_stock mas on c.sign_id=mas.id;`;
   const inputData = [zodiac];
 
-  pool.query(query, inputData, async (err, result) => {
-    const stock = result.rows[Math.floor(Math.random() * result.rows.length)];
+  try {
+    pool.query(query, inputData, async (err, result) => {
+      const stock = recommendStock(result.rows);
 
-    const companyProfile = await getCompanyProfile(stock.symbol);
+      const companyProfile = await getCompanyProfile(stock.symbol);
 
-    if (companyProfile) {
-      stock.description = shortenCompanySummary(companyProfile.summaryProfile.longBusinessSummary);
-      stock.logo = await getCompanyIcon(companyProfile.summaryProfile.website.split('//')[1]);
-    }
+      if (companyProfile) {
+        // eslint-disable-next-line max-len
+        stock.description = shortenCompanySummary(companyProfile.summaryProfile.longBusinessSummary);
+        stock.logo = await getCompanyIcon(companyProfile.summaryProfile.website.split('//')[1]);
+      }
 
-    req.app.locals.prevUrl = `/wish?stock=${stock.symbol}&matchid=${stock.match_id}`;
+      // save add to wishlist url for redirection later, in case user not logged in
+      req.app.locals.prevUrl = `/wish?stock=${stock.symbol}&matchid=${stock.match_id}`;
 
-    res.render('match', { stock });
-  });
+      res.render('match', { stock });
+    });
+  } catch (error) {
+    console.log('Error getting match', error.stack);
+  }
 };
 
 router

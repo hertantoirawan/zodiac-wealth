@@ -4,6 +4,12 @@ import { isLoggedIn } from '../models/helper.util.js';
 
 const router = Router();
 
+/**
+ * Get user profile.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ * @returns User profile.
+ */
 const getUserProfile = (req, res) => {
   if (!isLoggedIn(req)) {
     res.locals.prevUrl = '/user';
@@ -15,6 +21,11 @@ const getUserProfile = (req, res) => {
   res.render('user', { name });
 };
 
+/**
+ * Save user profile.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ */
 const saveProfile = async (req, res) => {
   if (!isLoggedIn(req)) {
     res.locals.prevUrl = '/user';

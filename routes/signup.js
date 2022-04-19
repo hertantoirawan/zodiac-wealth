@@ -4,6 +4,11 @@ import { getHashValue } from '../models/helper.util.js';
 
 const router = Router();
 
+/**
+ * Create a new user.
+ * @param {*} sign Zodiac sign.
+ * @returns New user ID.
+ */
 const createUser = async (sign) => {
   const query = 'insert into app_user (birth_month, birth_day, sign_id) values ($1, $2, $3) returning id';
   const inputData = [sign.birthMonth, sign.birthDay, sign.id];
@@ -36,15 +41,12 @@ const createUserAuth = async (req, res) => {
   const hashedPassword = getHashValue(req.body.password);
   const inputData = [id, req.body.username, hashedPassword];
 
-  pool.query(query, inputData, (err, result) => {
-    if (err) {
-      console.log('Error executing query', err.stack);
-      res.status(503).send(result.rows);
-      return;
-    }
-
+  try {
+    await pool.query(query, inputData);
     res.redirect('/login');
-  });
+  } catch (err) {
+    console.log('Error executing query', err.stack);
+  }
 };
 
 router

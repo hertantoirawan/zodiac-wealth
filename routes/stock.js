@@ -6,6 +6,11 @@ import { isLoggedIn } from '../models/helper.util.js';
 
 const router = Router();
 
+/**
+ * Get details about a stock.
+ * @param {string} ticker Stock symbol.
+ * @returns Stock details.
+ */
 const getStockDetails = async (ticker) => {
   try {
     const result = await yahooFinance.quoteSummary(ticker);
@@ -17,10 +22,16 @@ const getStockDetails = async (ticker) => {
   return null;
 };
 
+/**
+ * Get company historical chart data.
+ * @param {string} ticker Stock symbol.
+ * @returns Historical chart data.
+ */
 const getChartData = async (ticker) => {
   try {
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
+
     const queryOptions = { period1: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`, interval: '1mo' };
 
     const result = await yahooFinance.historical(ticker, queryOptions);
@@ -32,6 +43,11 @@ const getChartData = async (ticker) => {
   return null;
 };
 
+/**
+ * Get company news.
+ * @param {*} ticker Stock symbol.
+ * @returns News related to company.
+ */
 const getNews = async (ticker) => {
   try {
     const queryOptions = { newsCount: 4 };
@@ -45,6 +61,11 @@ const getNews = async (ticker) => {
   return null;
 };
 
+/**
+ * Format stock details into a summary of what to be shown.
+ * @param {*} stockDetails Details about a stock.
+ * @returns Formatted stock summary.
+ */
 const formatStockDetails = (stockDetails) => {
   const stockSummary = {};
   stockSummary.symbol = stockDetails.price.symbol;
@@ -75,6 +96,11 @@ const formatStockDetails = (stockDetails) => {
   return stockSummary;
 };
 
+/**
+ * Get comments about a stock.
+ * @param {string} stock Stock symbol.
+ * @returns Stock comments.
+ */
 const getComment = async (stock) => {
   const query = ` select c.id, 
                     case when au.name is null 
@@ -100,52 +126,6 @@ const getComment = async (stock) => {
   return null;
 };
 
-const getStock = async (req, res) => {
-  const { stock } = req.params;
-
-  if (!isLoggedIn(req)) {
-    res.locals.prevUrl = `/stock/${stock}`;
-    res.redirect('/login');
-    return;
-  }
-
-  const stockDetails = await getStockDetails(stock);
-
-  let stockSummary = {};
-  let chartData = {};
-  let chartLabels = [];
-  let chartPrices = [];
-  if (stockDetails) {
-    stockSummary = formatStockDetails(stockDetails);
-    chartData = await getChartData(stock);
-    chartLabels = chartData.map((data) => {
-      let month = (new Date(data.date)).getMonth() + 1;
-      if (month === 0) month = 12;
-      return month;
-    });
-    chartPrices = chartData.map((data) => data.close);
-  }
-
-  let stockNews = {};
-  const news = await getNews(stock);
-  if (news) {
-    news.news.forEach((story) => {
-      story.providerPublishTime = moment(story.providerPublishTime).fromNow();
-    });
-
-    stockNews = news.news;
-  }
-
-  const comments = await getComment(stock);
-  comments.forEach((comment) => {
-    comment.created_at = moment(comment.created_at).fromNow();
-  });
-
-  res.render('stock', {
-    stockSummary, chartData, chartLabels, chartPrices, stockNews, comments,
-  });
-};
-
 const addComment = async (req, res) => {
   const { comment } = req.body;
   const { stock } = req.params;
@@ -163,6 +143,61 @@ const addComment = async (req, res) => {
   }
 
   res.redirect(`/stock/${stock}#comments`);
+};
+
+/**
+ * Get stock information.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ * @returns Stock information.
+ */
+const getStock = async (req, res) => {
+  const { stock } = req.params;
+
+  if (!isLoggedIn(req)) {
+    res.locals.prevUrl = `/stock/${stock}`;
+    res.redirect('/login');
+    return;
+  }
+
+  const stockDetails = await getStockDetails(stock);
+
+  // get stock details and chart data
+  let stockSummary = {};
+  let chartData = {};
+  let chartLabels = [];
+  let chartPrices = [];
+  if (stockDetails) {
+    stockSummary = formatStockDetails(stockDetails);
+    chartData = await getChartData(stock);
+    chartLabels = chartData.map((data) => {
+      let month = (new Date(data.date)).getMonth() + 1;
+      if (month === 0) month = 12;
+      return month;
+    });
+    chartPrices = chartData.map((data) => data.close);
+  }
+
+  // get stock news
+  let stockNews = {};
+  const news = await getNews(stock);
+  if (news) {
+    news.news.forEach((story) => {
+      story.providerPublishTime = moment(story.providerPublishTime).fromNow();
+    });
+
+    stockNews = news.news;
+  }
+
+  // get stock comments
+  const comments = await getComment(stock);
+  comments.forEach((comment) => {
+    comment.created_at = moment(comment.created_at).fromNow();
+  });
+
+  res.render('stock', {
+    stockSummary, chartData, chartLabels, chartPrices, stockNews, comments,
+  });
 };
 
 router

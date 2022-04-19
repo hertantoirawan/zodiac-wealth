@@ -6,6 +6,10 @@ import { compare } from '../models/compare.js';
 
 const router = Router();
 
+/**
+ * Add buy/sell/hold recommendation to stock in wish list.
+ * @param {Array} wishList Wish list.
+ */
 const addDetailsToWishlist = async (wishList) => {
   const list = wishList;
 
@@ -24,6 +28,12 @@ const addDetailsToWishlist = async (wishList) => {
   }
 };
 
+/**
+ * Add stock to wish list.
+ * @param {string} stock Stock symbol.
+ * @param {Number} matchid Match ID.
+ * @param {Number} userID User ID of wish list.
+ */
 const addToWishList = async (stock, matchid, userID) => {
   const query = ` insert into wishlist (user_id, company_id, match_id) 
                   select $1, id, $3 from company where symbol=$2
@@ -37,6 +47,11 @@ const addToWishList = async (stock, matchid, userID) => {
   }
 };
 
+/**
+ * Get wish list data.
+ * @param {Number} userID User ID.
+ * @returns User's wish list.
+ */
 const getUserWishList = async (userID) => {
   const query = ` select c.id, c.name, c.symbol, i.name as industry, s.name as company_zodiac, m.rating as match_rating
                   from wishlist w 
@@ -56,6 +71,12 @@ const getUserWishList = async (userID) => {
   }
 };
 
+/**
+ * Get wish list.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ * @returns Wish list.
+ */
 const getWishList = async (req, res) => {
   const { stock, matchid } = req.query;
 
@@ -71,8 +92,10 @@ const getWishList = async (req, res) => {
 
   const userID = req.cookies.user.id;
   await addToWishList(stock, matchid, userID);
+
   const wishList = await getUserWishList(userID);
   await addDetailsToWishlist(wishList);
+
   wishList.sort((first, second) => compare(first, second, sortBy, sortOrder));
 
   res.render('wish', {
@@ -80,6 +103,11 @@ const getWishList = async (req, res) => {
   });
 };
 
+/**
+ * Delete stock from wish list.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ */
 const deleteFromWishList = async (req, res) => {
   const { companyID } = req.params;
   const userID = req.cookies.user.id;
