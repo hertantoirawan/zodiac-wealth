@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('header'); -%>
+  <body class="text-center login-body">
+    <div class="login-container">
+      <div class="d-flex justify-content-center align-items-center">
+        <img src="../images/logo.png" alt="" width="120" height="120" />
+      </div>
+      <div class="row text-center fs-1 mb-3">
+        <div class="col-12">Zodiac Wealth</div>
+      </div>
+      <form action="/login" method="POST">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control<%= (error) ? ' is-invalid' : '' %>"
+            id="username"
+            name="username"
+            placeholder="username"
+            aria-describedby="usernameFeedback"
+            required
+          />
+          <label for="username" class="form-label">Username</label>
+          <div id="usernameFeedback" class="invalid-feedback text-start ps-2">
+            <%= error %>
+          </div>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="password"
+            required
+          />
+          <label for="password" class="form-label">Password</label>
+        </div>
+        <input
+          type="submit"
+          class="btn btn-secondary mb-3 w-100"
+          value="Log In"
+        />
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#signUpModal"
+        >
+          Create new account
+        </button>
+      </form>
+    </div>
+    <div
+      class="modal fade"
+      id="signUpModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Sign Up</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"><%- include('signup'); -%></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

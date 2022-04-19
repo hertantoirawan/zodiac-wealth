@@ -1,0 +1,96 @@
+body {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  background-color: #f3f3f3;
+  color: #303841;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+a:link,
+a:visited,
+a:active,
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.hidden-submit-button {
+  display: none;
+}
+
+.icon-btn:hover {
+  cursor: pointer;
+}
+
+.login-body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f3f3f3;
+}
+
+.login-container {
+  max-width: 330px;
+  width: 100%;
+  margin: auto;
+}
+
+.circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid #303841;
+  text-align: center;
+}
+
+.circle-desc {
+  width: 92px;
+  text-align: center;
+}
+
+.connector-desc {
+  width: 10px;
+}
+
+.circle2 {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  border: 2px solid #303841;
+  text-align: center;
+}
+
+.start {
+  margin-top: 10rem;
+}
+
+.splash {
+  background-image: url("../images/background-pattern.png");
+  background-repeat: repeat;
+}
+
+.nav-tabs .nav-item {
+  background-color: #e6e6e6;
+}
+
+.nav-tabs .nav-item .active {
+  background-color: #f3f3f3;
+  border-bottom-color: #f3f3f3;
+}
+
+.connected-steps {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.connector {
+  flex-grow: 1;
+  width: 10px;
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #303841;
+}

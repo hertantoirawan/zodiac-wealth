@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('header'); -%>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col"><a href="/wish">< Back</a></div>
+      </div>
+      <div class="row m-1 mb-3 pb-3 border-bottom">
+        <div class="col-3 fw-bold fs-1"><%= stockSummary.symbol %></div>
+        <div class="col-9 d-flex align-items-center text-black-50">
+          <%= stockSummary.name %>
+        </div>
+        <div class="col-3"><%= stockSummary.price %></div>
+        <div class="col-9">
+          <span
+            class="<%= (stockSummary.percentChange < 0) ?'text-danger' : 'text-success'%>"
+            ><%= Intl.NumberFormat("en-GB", { style: "percent",
+            minimumFractionDigits: 1, maximumFractionDigits:
+            2}).format(stockSummary.percentChange) %></span
+          >
+        </div>
+      </div>
+      <div class="row m-1 mb-3 pb-3 border-bottom">
+        <div class="col-12 d-flex align-items-center text-black-50">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div class="row m-1 mb-3 pb-3 border-bottom">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6">Vol</div>
+            <div class="col-6 fw-bold"><%= stockSummary.volume %></div>
+            <div class="col-6">P/E</div>
+            <div class="col-6 fw-bold"><%= stockSummary.PE %></div>
+            <div class="col-6">Mkt Cap</div>
+            <div class="col-6 fw-bold"><%= stockSummary.marketCap %></div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6">52W H</div>
+            <div class="col-6 fw-bold"><%= stockSummary.priceHigh %></div>
+            <div class="col-6">52W L</div>
+            <div class="col-6 fw-bold"><%= stockSummary.priceLow %></div>
+            <div class="col-6">Avg Vol</div>
+            <div class="col-6 fw-bold"><%= stockSummary.averageVolume %></div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-1 mb-3 pb-3">
+        <div class="col">
+          <ul class="nav nav-tabs mb-3">
+            <li class="nav-item news">
+              <a class="nav-link active" data-toggle="tab" href="#news">News</a>
+            </li>
+            <li class="nav-item comments">
+              <a class="nav-link" data-toggle="tab" href="#comments"
+                >Comments</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="news" class="tab-pane active">
+              <% stockNews.forEach((story) => { %>
+              <p class="pb-0 mb-0">
+                <a target="_blank" href="<%= story.link %>"
+                  ><small><%= story.title %></small></a
+                >
+              </p>
+              <p class="text-end">
+                <small><%= story.providerPublishTime %></small>
+              </p>
+              <% }); %>
+            </div>
+            <div id="comments" class="tab-pane fade">
+              <form
+                action="/stock/<%= stockSummary.symbol %>/comment"
+                method="POST"
+              >
+                <div class="row border-bottom pb-2 mb-2">
+                  <div class="col">
+                    <textarea
+                      class="form-control"
+                      id="comment"
+                      name="comment"
+                      rows="3"
+                      placeholder="Add a comment ..."
+                      style="font-size: 0.9rem"
+                      required
+                    ></textarea>
+                    <input
+                      class="btn btn-secondary btn-sm mt-2"
+                      type="submit"
+                      value="Post"
+                    />
+                  </div>
+                </div>
+              </form>
+              <% comments.forEach((comment) => { %>
+              <div class="row">
+                <div class="col-6 fw-bold">
+                  <small><%= comment.name %> (<%= comment.zodiac %>)</small>
+                </div>
+                <div class="col-6 text-end">
+                  <small><%= comment.created_at %></small>
+                </div>
+              </div>
+              <div class="row border-bottom pb-2 mb-2">
+                <div class="col"><small><%= comment.comment %></small></div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('footer', { page: 'wish' }); -%>
+  </body>
+  <script>
+    $(document).ready(function(){
+      const data = {
+        labels: <%- JSON.stringify(chartLabels); %>,
+        datasets: [
+          {
+            label: "1Y",
+            backgroundColor: "green",
+            borderColor: "green",
+            data: <%- JSON.stringify(chartPrices); %>,
+          },
+        ],
+      };
+
+      const config = {
+        type: "line",
+        data: data,
+        options: {},
+      };
+
+      const myChart = new Chart(document.getElementById("myChart"), config);
+
+      if (window.location.href.indexOf("#comments") > -1) {
+        $('.comments a').tab('show');
+      }
+
+      $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+      });
+    });
+  </script>
+</html>

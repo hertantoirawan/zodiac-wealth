@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('header'); -%>
+  <body>
+    <div class="container">
+      <h2>Wishlist</h2>
+      <div class="row">
+        <div class="col text-end me-4 ps-0 pe-0">
+          <span class="fs-6">Sort: </span>
+          <span>
+            <a
+              href="?sortBy=symbol<%= ((sortBy === 'symbol') && (sortOrder === 'asc')) ? '&sortOrder=desc' : '&sortOrder=asc' %>"
+              ><small>Ticker</small> <% if ((sortBy === 'symbol') && (sortOrder
+              === 'asc')) { %>↑<% } else if ((sortBy === 'symbol') && (sortOrder
+              === 'desc')) { %>↓<% }%>
+            </a>
+            |
+            <a
+              href="?sortBy=company_zodiac<%= ((sortBy === 'company_zodiac') && (sortOrder === 'asc')) ? '&sortOrder=desc' : '&sortOrder=asc' %>"
+              ><small>Sign</small> <% if ((sortBy === 'company_zodiac') &&
+              (sortOrder === 'asc')) { %>↑<% } else if ((sortBy ===
+              'company_zodiac') && (sortOrder === 'desc')) { %>↓<% }%>
+            </a>
+            |
+            <a
+              href="?sortBy=match_rating<%= ((sortBy === 'match_rating') && (sortOrder === 'asc')) ? '&sortOrder=desc' : '&sortOrder=asc' %>"
+              ><small>Match</small> <% if ((sortBy === 'match_rating') &&
+              (sortOrder === 'asc')) { %>↑<% } else if ((sortBy ===
+              'match_rating') && (sortOrder === 'desc')) { %>↓<% }%>
+            </a>
+            |
+            <a
+              href="?sortBy=rating<%= ((sortBy === 'rating') && (sortOrder === 'asc')) ? '&sortOrder=desc' : '&sortOrder=asc' %>"
+              ><small>Rating</small> <% if ((sortBy === 'rating') && (sortOrder
+              === 'asc')) { %>↓<% } else if ((sortBy === 'rating') && (sortOrder
+              === 'desc')) { %>↑<% }%>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+        <% wishList.forEach((stock) => { %>
+        <div class="col">
+          <div class="card border-dark mb-3" style="max-width: 24rem">
+            <div class="card-header bg-transparent border-dark">
+              <div class="row">
+                <div class="col-3">
+                  <small><%= stock.symbol %></small>
+                </div>
+                <div class="col-9 text-end">
+                  <small><%= stock.name %></small>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row d-flex justify-content-around position-relative">
+                <div class="col-4 circle fs-2 pt-3">
+                  <img
+                    src="../images/<%= stock.company_zodiac %>.svg"
+                    alt="<%= stock.company_zodiac %>"
+                  />
+                </div>
+                <div class="col-4 circle fs-3 pt-4">
+                  <%= stock.match_rating %>%
+                </div>
+                <div
+                  class="col-4 circle fs-3 pt-4 <%= (stock.rating === 'SELL') ? 'text-danger' : (stock.rating === 'HOLD') ? 'text-warning' : 'text-success' %>"
+                >
+                  <%= stock.rating %>
+                </div>
+                <a href="/stock/<%= stock.symbol %>" class="stretched-link">
+                </a>
+                <div class="col-4 text-center"><%= stock.company_zodiac %></div>
+                <div class="col-4 text-center">match</div>
+                <div class="col-4 text-center">rating</div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-dark">
+              <div class="row">
+                <div class="col-11">
+                  <small><%= stock.industry %></small>
+                </div>
+                <div class="col-1 ps-0">
+                  <form
+                    action="/wish/<%= stock.id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <label>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-trash3 icon-btn"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                        />
+                      </svg>
+                      <input class="hidden-submit-button" type="submit" />
+                    </label>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <%- include('footer', { page: 'wish' }); -%>
+  </body>
+</html>
