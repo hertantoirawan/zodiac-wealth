@@ -5,7 +5,8 @@ Zodiac wealth is an app that gives out investment advice based on zodiac.
 
 ## Features
 
-## Tech Used / Dependencies
+## Tech Used
+- Logo made using [Hatchful](https://hatchful.shopify.com/)
 
 ## Documentation
 More documentation about the development of the app in [Wiki](https://github.com/hertantoirawan/zodiac-wealth/wiki).
