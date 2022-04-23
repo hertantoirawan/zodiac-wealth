@@ -5,7 +5,54 @@ import pool from '../models/dbConnect.js';
 const router = Router();
 
 /**
+ * Clean html from daily horoscope
+ * @param {*} horoscope Horoscope for a zodiac sign.
+ * @returns Clean daily horoscope.
+ */
+const cleanDailyHoroscope = (horoscope) => horoscope.split('<a')[0];
+
+/**
  * Get today's horoscope.
+ * @param {string} zodiac Zodiac sign.
+ * @returns Horoscope of the day.
+ */
+const getTodayHoroscopeBackup = async (zodiac) => {
+  const url = 'https://horoscopes-and-astrology.com/json';
+
+  const options = {
+    method: 'GET',
+    url,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+  };
+
+  try {
+    const response = await axios(options);
+    const responseOK = response && response.status === 200 && response.statusText === 'OK';
+
+    if (responseOK) {
+      const data = await response.data;
+      return (data) ? cleanDailyHoroscope(data.dailyhoroscope[zodiac]) : '';
+    }
+  } catch (err) {
+    console.log('Error getting today\'s horoscope', err.stack);
+  }
+
+  return '';
+};
+
+/**
+ * Shorten daily horoscope.
+ * @param {string} horoscope Horoscope for a zodiac sign.
+ * @returns Shortened horoscope.
+ */
+const shortenDailyHoroscope = (horoscope) => `${horoscope.split('.').slice(0, 2).join('.')}.`;
+
+/**
+ * Get today's horoscope.
+ * This free API is unreliable, which is why we add getTodayHoroscopeBackup
  * @param {string} zodiac Zodiac sign.
  * @returns Horoscope of the day.
  */
@@ -27,21 +74,17 @@ const getTodayHoroscope = async (zodiac) => {
 
     if (responseOK) {
       const data = await response.data;
-      return (data) ? data[0].text : '';
+      if (data) {
+        return shortenDailyHoroscope(data[0].text);
+      }
     }
+    return getTodayHoroscopeBackup(zodiac);
   } catch (err) {
     console.log('Error getting today\'s horoscope', err.stack);
   }
 
   return '';
 };
-
-/**
- * Shorten daily horoscope.
- * @param {string} horoscope Horoscope for a zodiac sign.
- * @returns Shortened horoscope.
- */
-const shortenDailyHoroscope = (horoscope) => `${horoscope.split('.').slice(0, 2).join('.')}.`;
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -75,9 +118,7 @@ const getZodiacDetail = async (zodiac) => {
 const getZodiac = async (req, res) => {
   const { zodiac } = req.params;
 
-  let horoscope = await getTodayHoroscope(zodiac);
-  horoscope = shortenDailyHoroscope(horoscope);
-
+  const horoscope = await getTodayHoroscope(zodiac);
   const zodiacDates = await getZodiacDetail(zodiac);
 
   res.render('zodiac', { zodiac, zodiacDates, horoscope });

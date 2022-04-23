@@ -1,0 +1,46 @@
+{
+  "language": "en_US",
+  "dailyhoroscope": {
+    "Aries": "You might be nervous that a previous incident could emerge and be the cause of disturbance. Are you the only one worrying? <a href=\"https://horoscopes-and-astrology.com/Aries?language=en_US\" alt=\"Aries\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Taurus": "Being sympathetic to others is worth the effort - that goes for your colleagues, too. You might need their sympathy some day. <a href=\"https://horoscopes-and-astrology.com/Taurus?language=en_US\" alt=\"Taurus\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Gemini": "Your outgoing personality and ability to gather people around you could turn out to be a great advantage during the day. <a href=\"https://horoscopes-and-astrology.com/Gemini?language=en_US\" alt=\"Gemini\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Cancer": "Today’s proverb: Nothing ventured, nothing gained. You should keep that in mind today - thing could get interesting! <a href=\"https://horoscopes-and-astrology.com/Cancer?language=en_US\" alt=\"Cancer\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Leo": "Today you should be aware of the financial aspects. This could involve not spending as well as having the guts to invest. <a href=\"https://horoscopes-and-astrology.com/Leo?language=en_US\" alt=\"Leo\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Virgo": "Do not let a random and quite silly unsettled matter become a problem between you and someone you otherwise appreciate. <a href=\"https://horoscopes-and-astrology.com/Virgo?language=en_US\" alt=\"Virgo\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Libra": "As a starting point, one should always refrain from lying. However, sometimes a little white lie can be the best solution for everyone.  <a href=\"https://horoscopes-and-astrology.com/Libra?language=en_US\" alt=\"Libra\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Scorpio": "You might feel that today contains an element of discomfort. Things could become much more interesting than you expected. <a href=\"https://horoscopes-and-astrology.com/Scorpio?language=en_US\" alt=\"Scorpio\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Sagittarius": "People who give a lot to others will often receive a lot in return. Things are closely related - kindness does come back to you. <a href=\"https://horoscopes-and-astrology.com/Sagittarius?language=en_US\" alt=\"Sagittatius\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Capricorn": "There could be someone in your circle of friends that you would like to ask a favour - you just don’t quite know how to do it. <a href=\"https://horoscopes-and-astrology.com/Capricorn?language=en_US\" alt=\"Capricon\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Aquarius": "Don’t do something today, which you wouldn’t have considered doing yesterday and probably wouldn’t tomorrow either. <a href=\"https://horoscopes-and-astrology.com/Aquarius?language=en_US\" alt=\"Aquarius\" target=\"_blank\"> <i>Read more...</i></a>",
+    "Pisces": "Today is all about work and your career - spending a little extra time and energy on these areas will be a good investment. <a href=\"https://horoscopes-and-astrology.com/Pisces?language=en_US\" alt=\"Pisces\" target=\"_blank\"> <i>Read more...</i></a>"
+  },
+  "dates": {
+    "Aries": "March 21 - April 19",
+    "Taurus": "April 20 - May 20",
+    "Gemini": "May 21 - June 20",
+    "Cancer": "June 21 - July 22",
+    "Leo": "July 23 - August 22",
+    "Virgo": "August 23 - September 22",
+    "Libra": "September 23 - October 22",
+    "Scorpio": "October 23 - November 21",
+    "Sagittarius": "November 22 - December 21",
+    "Capricorn": "December 22 - January 19",
+    "Aquarius": "January 20 - February 18",
+    "Pisces": "February 19 - March 20"
+  },
+  "titles": [
+    "Aries",
+    "Taurus",
+    "Gemini",
+    "Cancer",
+    "Leo",
+    "Virgo",
+    "Libra",
+    "Scorpio",
+    "Sagittarius",
+    "Capricorn",
+    "Aquarius",
+    "Pisces"
+  ],
+  "credit": "Delivered by Horoscopes-and-astrology.com"
+}
