@@ -113,7 +113,8 @@ const getComment = async (stock) => {
                   inner join auth a on a.user_id=au.id
                   inner join sign s on au.sign_id=s.id
                   inner join company co on c.company_id=co.id
-                  where co.symbol=$1;`;
+                  where co.symbol=$1
+                  order by c.created_at desc;`;
   const inputData = [stock];
 
   try {
@@ -126,6 +127,11 @@ const getComment = async (stock) => {
   return null;
 };
 
+/**
+ * Add comment about a stock.
+ * @param {Object} req Request object.
+ * @param {Object} res Response object.
+ */
 const addComment = async (req, res) => {
   const { comment } = req.body;
   const { stock } = req.params;
