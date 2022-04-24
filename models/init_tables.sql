@@ -28,11 +28,6 @@ CREATE TABLE IF NOT EXISTS company (
     sign_id         INTEGER REFERENCES sign (id)
 );
 
-CREATE TABLE IF NOT EXISTS company_sign (
-    id              SERIAL PRIMARY KEY,
-    sign_id         INTEGER REFERENCES sign (id)
-);
-
 CREATE TABLE IF NOT EXISTS match (
     id              SERIAL PRIMARY KEY,
     your_sign_id    INTEGER REFERENCES sign (id),
