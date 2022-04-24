@@ -3,6 +3,8 @@
 
 Zodiac Wealth is an app that gives out investment ideas based on zodiac.
 
+**LIVE LINK** : [https://zodiac-wealth.herokuapp.com/](https://zodiac-wealth.herokuapp.com/)
+
 ## Disclaimer
 The information provided on this app does not constitute investment advice, financial advice, trading advice, or any other sort of advice and you should not treat any of the app's content as such. Zodiac Wealth does not recommend that any stocks should be bought, sold, or held by you. Do conduct your own due diligence and consult your financial advisor before making any investment decisions.
 
