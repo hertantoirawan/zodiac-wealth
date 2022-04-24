@@ -1,3 +1,5 @@
+DELETE FROM match;
+
 INSERT INTO match (your_sign_id, match_sign_id, rating) VALUES ((SELECT id FROM sign WHERE name='Aries'), (SELECT id FROM sign WHERE name='Aries'), 50);
 INSERT INTO match (your_sign_id, match_sign_id, rating) VALUES ((SELECT id FROM sign WHERE name='Aries'), (SELECT id FROM sign WHERE name='Taurus'), 38);
 INSERT INTO match (your_sign_id, match_sign_id, rating) VALUES ((SELECT id FROM sign WHERE name='Aries'), (SELECT id FROM sign WHERE name='Gemini'), 83);

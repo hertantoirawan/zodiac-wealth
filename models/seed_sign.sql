@@ -1,3 +1,6 @@
+DELETE FROM sign;
+DELETE FROM sign_type;
+
 INSERT INTO sign_type (name) VALUES ('Western'), ('Chinese');
 
 INSERT INTO sign (type_id, name, start_month, start_day, end_month, end_day) VALUES (1, 'Aries', 3, 21, 4, 19);
