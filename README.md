@@ -3,6 +3,9 @@
 
 Zodiac Wealth is an app that gives out investment ideas based on zodiac.
 
+## Disclaimer
+The information provided on this app does not constitute investment advice, financial advice, trading advice, or any other sort of advice and you should not treat any of the app's content as such. Zodiac Wealth does not recommend that any stocks should be bought, sold, or held by you. Do conduct your own due diligence and consult your financial advisor before making any investment decisions.
+
 ## Features
 - Get daily horoscope for your zodiac
 - Get stock recommendation based on your zodiac
@@ -26,8 +29,9 @@ Zodiac Wealth is an app that gives out investment ideas based on zodiac.
   - [https://any.ge/horoscope/api/](https://any.ge/horoscope/api/)
   - [https://horoscopes-and-astrology.com/json](https://horoscopes-and-astrology.com/json)
 
+## Entity Relationship Diagram (ERD)
+![Zodiac Wealth ERD](https://user-images.githubusercontent.com/17814490/164978387-833dab0d-d118-419b-b90f-6d1fab9ceb52.png)
+
 ## Documentation
 More documentation about the development of the app in [Wiki](https://github.com/hertantoirawan/zodiac-wealth/wiki).
 
-## Disclaimer
-The information provided on this app does not constitute investment advice, financial advice, trading advice, or any other sort of advice and you should not treat any of the app's content as such. Zodiac Wealth does not recommend that any stocks should be bought, sold, or held by you. Do conduct your own due diligence and consult your financial advisor before making any investment decisions.
