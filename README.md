@@ -15,8 +15,20 @@ The information provided on this app does not constitute investment advice, fina
 - Get common stock details
 - Add and read other's comments about a stock
 
+## How to run
+- Install and start postgresql database locally
+- Create database in postgresql named zodiac_wealth
+- Run npm scripts to create/seed tables in this order
+  - ```npm run db:create```
+  - ```npm run db:seed```
+- Run one of the npm scripts to start
+  - ```npm start``` to use node
+  - ```npm run startmon``` to use nodemon
+- Go to ```localhost:3004/``` to start using the app
+
 ## Tech Used / Data Source
 - UI is done using [Bootstrap](https://getbootstrap.com/)
+- UI is designed for mobile, and tested with iPhone XR dimension in browser's developer tools
 - Navigation icons from [Bootstrap Icons](https://icons.getbootstrap.com/)
 - Database is using [PostgreSQL](https://www.postgresql.org/)
 - Chart done using [Chart.js](https://www.chartjs.org/)
