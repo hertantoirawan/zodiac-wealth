@@ -1,0 +1,9 @@
+DROP TABLE wishlist;
+DROP TABLE comment;
+DROP TABLE company;
+DROP TABLE match;
+DROP TABLE auth;
+DROP TABLE app_user;
+DROP TABLE sign;
+DROP TABLE sign_type;
+DROP TABLE industry;

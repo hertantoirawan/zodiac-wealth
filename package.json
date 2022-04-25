@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "db:create": "psql -d zodiac_wealth -f models/init_tables.sql",
+    "db:seed": "psql -d zodiac_wealth -f models/seed_tables.sql",
+    "db:drop": "psql -d zodiac_wealth -f models/drop_tables.sql",
     "start": "node index.js",
     "startmon": "nodemon index.js -e js"
   },
