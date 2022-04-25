@@ -15,7 +15,7 @@ The information provided on this app does not constitute investment advice, fina
 - Get common stock details
 - Add and read other's comments about a stock
 
-## How to run
+## How to setup and run
 - Install and start postgresql database locally
 - Create database in postgresql named zodiac_wealth
 - Run npm scripts to create/seed tables in this order
