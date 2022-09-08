@@ -1,5 +1,5 @@
 # Zodiac Wealth
-<img src="https://user-images.githubusercontent.com/17814490/189078274-5da34a10-6c96-49a4-ad2d-3c50f55b88bf.png" width=200 />
+<img src="https://user-images.githubusercontent.com/17814490/189079782-d1adb19f-ee37-4ebb-8cb7-5fa4e0b1fb08.png" width=200 />
 
 Zodiac Wealth is an app that gives out investment ideas based on zodiac.
 
